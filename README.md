@@ -10,7 +10,7 @@ This implementation is based on "[Global Explanations for Neural Networks](https
 
 ## Installation
 ```sh
-python3 -m pip install git+https://github.com/CentreInnovationLevio/global-attribution-mapping
+python3 -m pip install git+https://github.com/CentreInnovationLevio/global-attribution-mapping.git
 ```  
 ## Get Started
 First generate local attributions using your favorite technique, then:
