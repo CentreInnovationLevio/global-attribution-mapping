@@ -42,8 +42,9 @@ class GAM:
 
     def __init__(
         self,
+        attributions,
+        feature_labels,
         k=2,
-        attributions_path="local_attributions.csv",
         cluster_method=None,
         distance="spearman",
         use_normalized=True,
@@ -51,7 +52,7 @@ class GAM:
         max_iter=100,
         tol=1e-3,
     ):
-        self.attributions_path = attributions_path
+
         self.cluster_method = cluster_method
 
         self.distance = distance
@@ -70,32 +71,16 @@ class GAM:
         self.max_iter = max_iter
         self.tol = tol
 
-        self.attributions = None
+        self.attributions = attributions
         # self.normalized_attributions = None
         self.use_normalized = use_normalized
         self.clustering_attributions = None
-        self.feature_labels = None
+        self.feature_labels = feature_labels
 
         self.subpopulations = None
         self.subpopulation_sizes = None
         self.explanations = None
         self.score = None
-
-    def _read_local(self):
-        """
-        Reads attribution values and feature labels from csv
-
-        Returns:
-            attributions (numpy.ndarray): for example, [(.2, .8), (.1, .9)]
-            feature labels (tuple of labels): ("height", "weight")
-        """
-
-        self.attributions = np.genfromtxt(
-            self.attributions_path, dtype=float, delimiter=",", skip_header=1
-        )
-
-        with open(self.attributions_path) as attribution_file:
-            self.feature_labels = next(csv.reader(attribution_file))
 
     @staticmethod
     def normalize(attributions):
@@ -200,7 +185,6 @@ class GAM:
 
     def generate(self):
         """Clusters local attributions into subpopulations with global explanations"""
-        self._read_local()
         if self.use_normalized:
             self.clustering_attributions = GAM.normalize(self.attributions)
         else:
