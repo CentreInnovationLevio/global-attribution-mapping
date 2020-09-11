@@ -1,4 +1,7 @@
-# GAM (Global Attribution Mapping)
+# Note that this repo is a fork 
+This repo is a fork from https://github.com/capitalone/global-attribution-mapping
+
+## GAM (Global Attribution Mapping)
 > Global Explanations for Deep Neural Networks
 
 GAM explains the landscape of neural network predictions across subpopulations. 
@@ -7,7 +10,7 @@ This implementation is based on "[Global Explanations for Neural Networks](https
 
 ## Installation
 ```sh
-python3 -m pip install git+https://github.com/capitalone/global-attribution-mapping.git
+python3 -m pip install git+https://github.com/CentreInnovationLevio/global-attribution-mapping
 ```  
 ## Get Started
 First generate local attributions using your favorite technique, then:
