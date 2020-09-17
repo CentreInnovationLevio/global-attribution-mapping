@@ -8,6 +8,7 @@ TODO:
 """
 
 from sklearn.metrics import pairwise_distances
+from gam.pairwise_distances import spearman_pairwise_distance
 import numpy as np
 
 
@@ -24,9 +25,9 @@ def spearman_squared_distance(a, b):
     """
 
     order_penalty = (a - b) ** 2
-    weight = np.multiply(a, b)
+    weight = a * b
 
-    distance = 1e4 * np.sum(np.multiply(order_penalty, weight))
+    distance = 1e4 * np.sum(order_penalty * weight)
     return distance
 
 
@@ -63,9 +64,7 @@ def pairwise_spearman_distance_matrix(rankings):
     Returns:
         [array[array]]: Spearman Distance Matrix
     """
-    return pairwise_distances(
-        rankings, metric=spearman_squared_distance
-    )
+    return spearman_pairwise_distance(rankings)
 
 
 def pairwise_spearman_distance_matrix_legacy(rankings):

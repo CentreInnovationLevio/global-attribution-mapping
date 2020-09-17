@@ -40,5 +40,6 @@ setup(
         "pandas > 0.25.1",
         "scikit-learn > 0.21.3",
         "numpy > 1.17.2",
+        "torch >= 1.6.0",
     ],
 )
