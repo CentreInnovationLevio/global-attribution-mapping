@@ -25,21 +25,19 @@ def spearman_pairwise_distance(X, centers=None):
 
 def torch_spearman_pairwise_distance(X, centers):
 
-    max_calculation_size = 15000000
-    calculation_size = len(X) * len(centers)
+    max_calculation_size = 250000000
+    calculation_size = X.shape[0] * X.shape[1] * centers.shape[0]
     size_ratio = max_calculation_size / calculation_size
 
     if (size_ratio >= 1):
         return torch_spearman_pairwise_distance_core(X, centers)
 
     else:
-        print("size_ratio > 1")
 
         nb_center_per_step = int(size_ratio * len(centers))
         if (nb_center_per_step <= 0):
             nb_center_per_step = 1
 
-        print("nb_center_per_step: " + str(nb_center_per_step))
         all_column_distance = []
         for i in range(0, len(centers), nb_center_per_step):
             all_column_distance += [torch_spearman_pairwise_distance_core(X, centers[i:i+nb_center_per_step])]
@@ -70,10 +68,10 @@ def torch_spearman_pairwise_distance_core(X, centers):
 
 if __name__ == '__main__':
 
-    nb_row = 341
+    nb_row = 500
     nb_feature = 20
-    nb_cluster = 11
-    nb_run = 1
+    nb_cluster = 7
+    nb_run = 5
 
     a = np.random.uniform(0, 10, (nb_row,nb_feature))
 
